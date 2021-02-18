@@ -1,12 +1,15 @@
 {
   "name": "homework",
   "version": "1.0.0",
-  "description": "Homework for Norbit company, a mock application to display measured boat position sample data",
+  "description": "Homework for Norbit company, a test application to display measured boat position sample data",
   "main": "index.js",
   "scripts": {
     "start": "node index",
     "dev": "nodemon index"
   },
   "author": "Bors Péter",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }

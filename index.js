@@ -8,8 +8,18 @@ app.get("/", (req, res) => {
 });
 
 io.on("connection", (socket) => {
-  console.log("a user connected");
-  socket.emit("Greeting", "Hello!");
+  console.log("connected");
+
+  io.emit("connection", "User connected to your channel");
+
+  socket.on("new record", (msg) => {
+    console.log(msg);
+    io.emit("new record", msg);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("user disconnected");
+  });
 });
 
 const PORT = process.env.PORT || 5000;

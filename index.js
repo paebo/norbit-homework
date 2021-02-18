@@ -9,8 +9,9 @@ app.get("/", (req, res) => {
 
 io.on("connection", (socket) => {
   console.log("a user connected");
+  socket.emit("Greeting", "Hello!");
 });
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, console.log(`Server started on port ${PORT}`));
+http.listen(PORT, console.log(`Server started on port ${PORT}`));

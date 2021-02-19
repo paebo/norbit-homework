@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
-const http = require("http").Server(app);
-const io = require("socket.io")(http, {
+const server = require("http").Server(app);
+const io = require("socket.io")(server, {
   cors: {
     origin: "http://localhost:3000",
     credentials: true,
@@ -9,13 +9,24 @@ const io = require("socket.io")(http, {
 });
 const path = require("path");
 const logger = require("./middleware/logger");
+const db = require("./queries");
+
 require("dotenv").config();
 
+//Init Middlewares
+app.use(logger);
+
+//Body parser middleware
+//app.use(express.json());
+//app.use(express.urlencoded({ extended: false }));
+
 app.get("/", (req, res) => {
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
   res.sendFile(__dirname + "/index.html");
 });
 
-app.use(logger);
+//app.get("/records", db.getRecords);
+//app.get("/records/:id", db.getRecords);
 
 //For React
 /*
@@ -30,8 +41,8 @@ io.on("connection", (socket) => {
   io.emit("connection", "User connected to your channel");
 
   socket.on("new record", (data) => {
-    console.log(data);
     io.emit("new record", data);
+    db.saveRecord(data);
   });
 
   socket.on("disconnect", () => {
@@ -41,4 +52,4 @@ io.on("connection", (socket) => {
 
 const PORT = process.env.PORT || 5000;
 
-http.listen(PORT, console.log(`Server started on port ${PORT}`));
+server.listen(PORT, console.log(`Server started on port ${PORT}`));

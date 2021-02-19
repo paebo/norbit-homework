@@ -1,23 +1,23 @@
 const { Pool } = require("pg");
 
 const pool = new Pool({
-  user: process.env.PGPORT,
+  user: process.env.PGUSER,
   host: process.env.PGHOST,
   database: process.env.PGDATABASE,
   password: process.env.PGPASSWORD,
-  port: 5432,
+  port: process.env.PGPORT,
 });
 
 //Get all records
-/*const getRecords = (request, response) => {
-  pool.query("SELECT * FROM views", (error, results) => {
+const getRecords = (request, response) => {
+  result = pool.query("SELECT * FROM record", (error, results) => {
     if (error) {
       throw error;
     }
-    console.log(response.status(200).json(results.rows));
-    pool.end();
+    response.status(200).json(results.rows);
+    //pool.end();
   });
-};*/
+};
 
 //Get single record
 /*const getRecordById = (request, response) => {
@@ -33,22 +33,20 @@ const pool = new Pool({
 
 const saveRecord = (data) => {
   const { lat, lon, heading } = data;
-  console.log(JSON.stringify(data));
 
   pool.query(
-    "INSERT INTO views (latitude, longitude, heading) VALUES ($1, $2, $3)",
-    [lat, lon, heading],
-    (error, result) => {
+    `INSERT INTO record (lat, lon, heading)
+    VALUES (${lat}, ${lon}, ${heading})`,
+    (error) => {
       if (error) {
         throw error;
       }
-      console.log(result.insertId);
     }
   );
 };
 
 module.exports = {
-  //getRecords,
+  getRecords,
   //getRecordById
   saveRecord,
 };

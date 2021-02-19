@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
 
-//app.get("/records", db.getRecords);
+app.get("/records", db.getRecords);
 //app.get("/records/:id", db.getRecords);
 
 //For React
@@ -42,7 +42,9 @@ io.on("connection", (socket) => {
 
   socket.on("new record", (data) => {
     io.emit("new record", data);
-    db.saveRecord(data);
+    if (data) {
+      db.saveRecord(data);
+    }
   });
 
   socket.on("disconnect", () => {

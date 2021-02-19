@@ -38,5 +38,6 @@ socket.on("connect", () => {
 
   lr.on("end", () => {
     console.log("All lines were read, file is closed now");
+    process.exit();
   });
 });

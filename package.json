@@ -10,6 +10,15 @@
   "author": "Bors Péter",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "csvtojson": "^2.0.10",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "line-by-line": "^0.1.6",
+    "moment": "^2.29.1",
+    "ol": "^6.5.0",
+    "parcel-bundler": "^1.12.4",
+    "pg": "^8.5.1",
+    "socket.io": "^3.1.1",
+    "socket.io-client": "^3.1.1"
   }
 }

@@ -1,11 +1,24 @@
 const express = require("express");
 const app = express();
 const http = require("http").Server(app);
-const io = require("socket.io")(http);
+const io = require("socket.io")(http, {
+  cors: {
+    origin: "http://localhost:3000",
+    credentials: true,
+  },
+});
+const path = require("path");
 
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
+
+//For React
+/*
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "./frontend/public/index.html"));
+});
+*/
 
 io.on("connection", (socket) => {
   console.log("connected");

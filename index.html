@@ -71,9 +71,9 @@
         window.scrollTo(0, document.body.scrollHeight);
       });
 
-      socket.on("new record", (msg) => {
+      socket.on("new record", (data) => {
         var item = document.createElement("li");
-        item.textContent = JSON.stringify(msg);
+        item.textContent = JSON.stringify(data);
         messages.appendChild(item);
         window.scrollTo(0, document.body.scrollHeight);
       });

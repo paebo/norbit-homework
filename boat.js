@@ -3,14 +3,16 @@ const socket = io("ws://localhost:5000");
 const csv = require("csvtojson");
 const lineByLineReader = require("line-by-line");
 
-socket.on("connect", () => {
-  lr = new lineByLineReader(`data/line1.csv`);
+let recordingSection = 1;
 
-  lr.on("error", function (err) {
+socket.on("connect", () => {
+  lr = new lineByLineReader(`data/line${recordingSection}.csv`);
+
+  lr.on("error", (err) => {
     console.log(`Error message on reading file: ${err}`);
   });
 
-  lr.on("line", function (line) {
+  lr.on("line", (line) => {
     lr.pause();
 
     csv({
@@ -21,7 +23,6 @@ socket.on("connect", () => {
       .then((csvRow) => {
         row = csvRow[0];
         if (row.field1 !== "lat") {
-          console.log(csvRow);
           socket.emit("new record", {
             lat: row.field1,
             lon: row.field2,
@@ -30,12 +31,12 @@ socket.on("connect", () => {
         }
       });
 
-    setTimeout(function () {
+    setTimeout(() => {
       lr.resume();
     }, 1000);
   });
 
-  lr.on("end", function () {
-    console.log("All lines are read, file is closed now");
+  lr.on("end", () => {
+    console.log("All lines were read, file is closed now");
   });
 });

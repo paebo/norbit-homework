@@ -12,9 +12,9 @@ io.on("connection", (socket) => {
 
   io.emit("connection", "User connected to your channel");
 
-  socket.on("new record", (msg) => {
-    console.log(msg);
-    io.emit("new record", msg);
+  socket.on("new record", (data) => {
+    console.log(data);
+    io.emit("new record", data);
   });
 
   socket.on("disconnect", () => {

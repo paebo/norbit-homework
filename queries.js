@@ -19,7 +19,7 @@ const getRecords = (request, response) => {
   });
 };
 
-//Get single record
+//Get single record (for future development)
 /*const getRecordById = (request, response) => {
   const id = parseInt(request.params.id)
 

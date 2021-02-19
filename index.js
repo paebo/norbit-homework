@@ -13,27 +13,19 @@ const db = require("./queries");
 
 require("dotenv").config();
 
-//Init Middlewares
 app.use(logger);
 
-//Body parser middleware
+//Body parser for future development
 //app.use(express.json());
 //app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
   res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-  res.sendFile(__dirname + "/index.html");
+  res.sendFile(path.join(__dirname, "/frontend/public/index.html"));
 });
 
 app.get("/records", db.getRecords);
 //app.get("/records/:id", db.getRecords);
-
-//For React
-/*
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "./frontend/public/index.html"));
-});
-*/
 
 io.on("connection", (socket) => {
   console.log("connected");

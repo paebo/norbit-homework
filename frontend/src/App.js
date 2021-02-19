@@ -2,30 +2,41 @@ import React, { useState, useEffect } from "react";
 import socketIOClient from "socket.io-client";
 import "./App.css";
 
-const ENDPOINT = "http://localhost:5000";
+const ENDPOINT = "http://localhost:5001";
 
 //const socket = io();
 
-const App = () => {
+function App() {
+  const [response, setResponse] = useState();
   const socket = socketIOClient(ENDPOINT, {
-    transports: ["websocket", "polling", "flashsocket"],
+    transports: ["websocket", "flashsocket"],
   });
-  socket.on("new record", (data) => {
-    setResponse(data);
-    window.scrollTo(0, document.body.scrollHeight);
-  });
-  const [response, setResponse] = useState("");
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    socket.on("new record", (data) => {
+      setResponse([data.lat, data.lon, data.heading]);
+    });
+  }, [response]);
 
   return (
     <div className='App'>
       <header className='App-header'>
-        <ul id='records'></ul>
-        <h1> yes {response}</h1>
+        <ul id='records'>
+          {response ? (
+            <>
+              <li>{response[0]}</li>
+              <li>{response[1]}</li>
+              <li>{response[2]}</li>
+            </>
+          ) : (
+            <>
+              <li>no data</li>
+            </>
+          )}
+        </ul>
       </header>
     </div>
   );
-};
+}
 
 export default App;

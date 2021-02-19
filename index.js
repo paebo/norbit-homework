@@ -8,6 +8,7 @@ const io = require("socket.io")(http, {
   },
 });
 const path = require("path");
+require("dotenv").config();
 
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");

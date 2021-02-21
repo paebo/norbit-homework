@@ -1,5 +1,5 @@
 const io = require("socket.io-client");
-const socket = io("ws://localhost:5001");
+const socket = io("http://localhost:5001");
 const csv = require("csvtojson");
 const lineByLineReader = require("line-by-line");
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import socketIOClient from "socket.io-client";
 import "./App.css";
-import WorldMap from "./components/Map.js";
+//import WorldMap from "./components/Map.js";
 
 const ENDPOINT = "http://localhost:5001";
 
@@ -9,15 +9,13 @@ const ENDPOINT = "http://localhost:5001";
 
 function App() {
   const [response, setResponse] = useState();
-  const socket = socketIOClient(ENDPOINT, {
-    transports: ["websocket", "flashsocket"],
-  });
+  const socket = socketIOClient(ENDPOINT);
 
   useEffect(() => {
     socket.on("new record", (data) => {
       setResponse([data.lat, data.lon, data.heading]);
     });
-  }, [response]);
+  }, []);
 
   return (
     <div className='App'>
@@ -30,12 +28,9 @@ function App() {
               <li>{response[2]}</li>
             </>
           ) : (
-            <>
-              <li>no data</li>
-            </>
+            <>No data stream</>
           )}
         </ul>
-        <WorldMap />
       </header>
     </div>
   );

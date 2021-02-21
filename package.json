@@ -1,10 +1,10 @@
 {
   "name": "homework",
   "version": "1.0.0",
-  "description": "Homework for Norbit company, a mock application to display measured boat position sample data",
-  "main": "index.js",
+  "description": "Homework for Norbit company, a test application to display measured boat position sample data",
+  "main": "server.js",
   "scripts": {
-    "start": "node index",
+    "start": "node server",
     "dev": "nodemon index"
   },
   "author": "Bors Péter",

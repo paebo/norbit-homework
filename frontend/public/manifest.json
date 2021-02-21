@@ -1,5 +1,5 @@
 {
-  "short_name": "React Test App",
+  "short_name": "Norbit Test App",
   "name": "Norbit test app to display recorded boat position data",
 
   "start_url": ".",

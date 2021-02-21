@@ -5,8 +5,6 @@ import "./App.css";
 
 const ENDPOINT = "http://localhost:5001";
 
-//const socket = io();
-
 function App() {
   const [response, setResponse] = useState();
   const socket = socketIOClient(ENDPOINT);

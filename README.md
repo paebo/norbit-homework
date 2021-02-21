@@ -7,6 +7,7 @@ Application to collect and display measured boat position sample data.
 - Have an installed instance of PostgreSQL on your computer.
 - Have NPM installed on your computer.
 - Have Node.js installed on your computer
+- Have React installed on your computer
 
 In development:
 
@@ -66,6 +67,7 @@ Lastly, start the data provider:
 
 ```
 cd ..
+cd app
 node boat
 ```
 

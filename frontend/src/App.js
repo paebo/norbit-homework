@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import socketIOClient from "socket.io-client";
 import "./App.css";
-//import WorldMap from "./components/Map.js";
+import PublicMap from "./components/Map/Map";
 
 const ENDPOINT = "http://localhost:5001";
 
@@ -30,6 +30,7 @@ function App() {
           )}
         </ul>
       </header>
+      <PublicMap />
     </div>
   );
 }

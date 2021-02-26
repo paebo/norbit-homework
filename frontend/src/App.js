@@ -1,11 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
+import React from "react";
 import "./App.css";
-import {
-  CoordinateProvider,
-  CoordinateContext,
-} from "./components/Map/CoordinateProvider";
+import { CoordinateProvider } from "./components/Map/CoordinateProvider";
 import Coordinates from "./components/Map/Coordinates";
-import PublicMap from "./components/Map/Map";
+import WorldMap from "./components/Map/Map";
 
 function App() {
   return (
@@ -16,7 +13,7 @@ function App() {
             <Coordinates />
           </ul>
         </header>
-        <PublicMap />
+        <WorldMap />
       </CoordinateProvider>
     </div>
   );

@@ -1,23 +1,23 @@
 import React, { Component } from "react";
-import OlMap from "ol/Map";
-import OlView from "ol/View";
-import OlLayerTile from "ol/layer/Tile";
-import OlLayerVector from "ol/layer/Vector";
-import OlSourceOSM from "ol/source/OSM";
+import Map from "ol/Map";
+import View from "ol/View";
+import TileLayer from "ol/layer/Tile";
+import VectorLayer from "ol/layer/Vector";
+import OSMSource from "ol/source/OSM";
 import VectorSource from "ol/source/Vector";
 import Draw from "ol/interaction/Draw";
 import Point from "ol/geom/Point";
 import Feature from "ol/Feature";
-import { Style, Circle as Circ, Fill } from "ol/style";
-import { fromLonLat, transform } from "ol/proj";
+import { Style, Circle, Fill } from "ol/style";
+import { fromLonLat } from "ol/proj";
 import { CoordinateContext } from "./CoordinateProvider";
-class PublicMap extends Component {
+class WorldMap extends Component {
   constructor(props) {
     super(props);
 
-    this.szeged = fromLonLat([20.1414, 46.253]);
+    this.BUDAPEST = fromLonLat([19.0414, 47.4979]);
 
-    this.state = { center: this.szeged, zoom: 6, coordinates: [] };
+    this.state = { center: this.BUDAPEST, zoom: 6, coordinates: [] };
 
     this.features = [];
 
@@ -25,33 +25,33 @@ class PublicMap extends Component {
 
     this.toggle = false;
 
-    this.raster = [
-      new OlLayerTile({
-        source: new OlSourceOSM(),
+    this.tileLayer = [
+      new TileLayer({
+        source: new OSMSource(),
       }),
     ];
 
     this.source = new VectorSource({ features: this.features });
 
-    this.vector = new OlLayerVector({
+    this.vectorLayer = new VectorLayer({
       source: this.source,
       style: new Style({
-        image: new Circ({
+        image: new Circle({
           radius: 3,
           fill: new Fill({ color: "red" }),
         }),
       }),
     });
 
-    this.olmap = new OlMap({
+    this.olmap = new Map({
       target: null,
-      layers: this.raster,
-      view: new OlView({
-        center: this.szeged,
+      layers: this.tileLayer,
+      view: new View({
+        center: this.BUDAPEST,
         zoom: this.state.zoom,
       }),
     });
-    this.olmap.addLayer(this.vector);
+    this.olmap.addLayer(this.vectorLayer);
   }
 
   static contextType = CoordinateContext;
@@ -87,6 +87,7 @@ class PublicMap extends Component {
     });
   }
 
+  //
   /*addInteraction() {
     this.toggle = !this.toggle;
     if (this.toggle) {
@@ -113,13 +114,13 @@ class PublicMap extends Component {
   }
 
   render() {
-    this.updateMap(); // Update map on render?*/
+    this.updateMap(); // Update map on render?
     return (
       <div id='map' style={{ width: "100%", height: "500px" }}>
-        <button onClick={(e) => this.userAction()}>Zoom to marking</button>
+        <button onClick={() => this.userAction()}>Zoom to marking</button>
       </div>
     );
   }
 }
 
-export default PublicMap;
+export default WorldMap;

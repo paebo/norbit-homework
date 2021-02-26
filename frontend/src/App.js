@@ -1,33 +1,17 @@
 import React, { useState, useEffect } from "react";
-import socketIOClient from "socket.io-client";
 import "./App.css";
+import { CoordinateProvider } from "./components/Map/CoordinateProvider";
+import Coordinates from "./components/Map/Coordinates";
 import PublicMap from "./components/Map/Map";
 
-const ENDPOINT = "http://localhost:5001";
-
 function App() {
-  const [response, setResponse] = useState();
-  const socket = socketIOClient(ENDPOINT);
-
-  useEffect(() => {
-    socket.on("new record", (data) => {
-      setResponse([data.lat, data.lon, data.heading]);
-    });
-  }, []);
-
   return (
     <div className='App'>
       <header className='App-header'>
         <ul id='records'>
-          {response ? (
-            <>
-              <li>{response[0]}</li>
-              <li>{response[1]}</li>
-              <li>{response[2]}</li>
-            </>
-          ) : (
-            <>No data stream</>
-          )}
+          <CoordinateProvider>
+            <Coordinates />
+          </CoordinateProvider>
         </ul>
       </header>
       <PublicMap />

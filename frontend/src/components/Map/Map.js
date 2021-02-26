@@ -15,8 +15,6 @@ class PublicMap extends Component {
   constructor(props) {
     super(props);
 
-    console.log(props.coordinates);
-
     this.szeged = fromLonLat([20.1414, 46.253]);
 
     this.state = { center: this.szeged, zoom: 6 };

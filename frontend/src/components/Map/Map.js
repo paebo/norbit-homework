@@ -21,12 +21,6 @@ class PublicMap extends Component {
 
     this.features = [];
 
-    this.point = new Point(this.szeged);
-
-    this.feat = new Feature(this.point);
-
-    this.features.push(this.feat);
-
     this.draw = null;
 
     this.toggle = false;
@@ -93,7 +87,7 @@ class PublicMap extends Component {
     });
   }
 
-  addInteraction() {
+  /*addInteraction() {
     this.toggle = !this.toggle;
     if (this.toggle) {
       const value = "Point";
@@ -105,11 +99,11 @@ class PublicMap extends Component {
     } else {
       this.olmap.removeInteraction(this.draw);
     }
-  }
+  }*/
 
   drawPoint() {
-    if (this.context.response) {
-      const { lat, lon } = this.context.response;
+    if (this.context.records) {
+      const { lat, lon } = this.context.records;
       console.log(this.state, this.features, lon, lat);
       this.state.coordinates = fromLonLat([lon, lat]);
       let point = new Point(fromLonLat([lon, lat]));
@@ -123,8 +117,6 @@ class PublicMap extends Component {
     return (
       <div id='map' style={{ width: "100%", height: "500px" }}>
         <button onClick={(e) => this.userAction()}>Zoom to marking</button>
-        <button onClick={(e) => this.addInteraction()}>draw on click</button>
-        <button onClick={(e) => this.drawPoint()}>draw on click</button>
       </div>
     );
   }

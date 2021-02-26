@@ -8,8 +8,6 @@ import Coordinates from "./components/Map/Coordinates";
 import PublicMap from "./components/Map/Map";
 
 function App() {
-  const { response } = useContext(CoordinateContext);
-
   return (
     <div className='App'>
       <CoordinateProvider>
@@ -18,7 +16,7 @@ function App() {
             <Coordinates />
           </ul>
         </header>
-        <PublicMap coordinates={response} />
+        <PublicMap />
       </CoordinateProvider>
     </div>
   );

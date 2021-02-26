@@ -6,16 +6,17 @@ export const CoordinateContext = createContext();
 const ENDPOINT = "http://localhost:5001";
 
 export function CoordinateProvider(props) {
-  const [response, setResponse] = useState();
+  const [records, setRecords] = useState();
   const socket = socketIOClient(ENDPOINT);
 
   useEffect(() => {
     socket.on("new record", (data) => {
-      setResponse({ lat: data.lat, lon: data.lon, heading: data.heading });
+      setRecords({ lat: data.lat, lon: data.lon, heading: data.heading });
     });
   }, []);
+
   return (
-    <CoordinateContext.Provider value={{ response }}>
+    <CoordinateContext.Provider value={{ records }}>
       {props.children}
     </CoordinateContext.Provider>
   );

@@ -2,15 +2,15 @@ import React, { useContext } from "react";
 import { CoordinateContext } from "./CoordinateProvider";
 
 function Coordinates() {
-  const { response } = useContext(CoordinateContext);
+  const { records } = useContext(CoordinateContext);
 
   return (
     <>
-      {response ? (
+      {records ? (
         <>
-          <li>Lat: {response.lat}</li>
-          <li>Lon: {response.lon}</li>
-          <li>Heading: {response.heading}</li>
+          <li>Lat: {records.lat}</li>
+          <li>Lon: {records.lon}</li>
+          <li>Heading: {records.heading}</li>
         </>
       ) : (
         <>No data stream</>

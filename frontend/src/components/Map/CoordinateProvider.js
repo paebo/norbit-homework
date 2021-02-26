@@ -11,11 +11,11 @@ export function CoordinateProvider(props) {
 
   useEffect(() => {
     socket.on("new record", (data) => {
-      setResponse([data.lat, data.lon, data.heading]);
+      setResponse({ lat: data.lat, lon: data.lon, heading: data.heading });
     });
   }, []);
   return (
-    <CoordinateContext.Provider value={{ response, setResponse }}>
+    <CoordinateContext.Provider value={{ response }}>
       {props.children}
     </CoordinateContext.Provider>
   );

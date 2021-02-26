@@ -10,7 +10,7 @@ import Point from "ol/geom/Point";
 import Feature from "ol/Feature";
 import { Style, Circle as Circ, Fill } from "ol/style";
 import { fromLonLat, transform } from "ol/proj";
-
+import { CoordinateContext } from "./CoordinateProvider";
 class PublicMap extends Component {
   constructor(props) {
     super(props);
@@ -60,9 +60,12 @@ class PublicMap extends Component {
     this.olmap.addLayer(this.vector);
   }
 
+  static contextType = CoordinateContext;
+
   updateMap() {
     this.olmap.getView().setCenter(this.state.center);
     this.olmap.getView().setZoom(this.state.zoom);
+    this.drawPoint();
   }
 
   componentDidMount() {
@@ -104,17 +107,20 @@ class PublicMap extends Component {
   }
 
   drawPoint() {
-    console.log(this.state, this.features);
-    let point = new Point(fromLonLat([19, 40]));
-    let feat = new Feature(point);
-    this.source.addFeature(feat);
+    if (this.context.response) {
+      const { lat, lon } = this.context.response;
+      console.log(this.state, this.features, lat, lon);
+      let point = new Point(fromLonLat([lon, lat]));
+      let feat = new Feature(point);
+      this.source.addFeature(feat);
+    }
   }
 
   render() {
     this.updateMap(); // Update map on render?*/
     return (
       <div id='map' style={{ width: "100%", height: "500px" }}>
-        <button onClick={(e) => this.userAction()}>setState on click</button>
+        <button onClick={(e) => this.userAction()}>Zoom to marking</button>
         <button onClick={(e) => this.addInteraction()}>draw on click</button>
         <button onClick={(e) => this.drawPoint()}>draw on click</button>
       </div>

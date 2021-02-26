@@ -8,9 +8,9 @@ function Coordinates() {
     <>
       {response ? (
         <>
-          <li>{response[0]}</li>
-          <li>{response[1]}</li>
-          <li>{response[2]}</li>
+          <li>{response.lat}</li>
+          <li>{response.lon}</li>
+          <li>{response.heading}</li>
         </>
       ) : (
         <>No data stream</>

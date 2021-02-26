@@ -17,7 +17,7 @@ class PublicMap extends Component {
 
     this.szeged = fromLonLat([20.1414, 46.253]);
 
-    this.state = { center: this.szeged, zoom: 6 };
+    this.state = { center: this.szeged, zoom: 6, coordinates: [] };
 
     this.features = [];
 
@@ -43,7 +43,7 @@ class PublicMap extends Component {
       source: this.source,
       style: new Style({
         image: new Circ({
-          radius: 5,
+          radius: 3,
           fill: new Fill({ color: "red" }),
         }),
       }),
@@ -83,12 +83,13 @@ class PublicMap extends Component {
     let center = this.olmap.getView().getCenter();
     let zoom = this.olmap.getView().getZoom();
     if (center === nextState.center && zoom === nextState.zoom) return false;
+    return true;
   }
 
   userAction() {
     this.setState({
-      center: transform([this.state.center], "EPSG:4326", "EPSG:3857"),
-      zoom: 5,
+      center: this.state.coordinates,
+      zoom: 20,
     });
   }
 
@@ -109,7 +110,8 @@ class PublicMap extends Component {
   drawPoint() {
     if (this.context.response) {
       const { lat, lon } = this.context.response;
-      console.log(this.state, this.features, lat, lon);
+      console.log(this.state, this.features, lon, lat);
+      this.state.coordinates = fromLonLat([lon, lat]);
       let point = new Point(fromLonLat([lon, lat]));
       let feat = new Feature(point);
       this.source.addFeature(feat);

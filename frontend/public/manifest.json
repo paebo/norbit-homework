@@ -1,9 +1,0 @@
-{
-  "short_name": "Norbit Test App",
-  "name": "Norbit test app to display recorded boat position data",
-
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
-}

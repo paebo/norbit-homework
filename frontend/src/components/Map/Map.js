@@ -59,7 +59,8 @@ class WorldMap extends Component {
   updateMap() {
     this.olmap.getView().setCenter(this.state.center);
     this.olmap.getView().setZoom(this.state.zoom);
-    this.drawPoint();
+    //this.drawLine();
+    this.drawLine();
   }
 
   componentDidMount() {
@@ -102,14 +103,32 @@ class WorldMap extends Component {
     }
   }*/
 
-  drawPoint() {
+  drawLine() {
     if (this.context.records) {
+      //if (this.source.getFeatures().length < 1) {
       const { lat, lon } = this.context.records;
       console.log(this.state, this.features, lon, lat);
       this.state.coordinates = fromLonLat([lon, lat]);
       let point = new Point(fromLonLat([lon, lat]));
       let feat = new Feature(point);
       this.source.addFeature(feat);
+      //}
+    }
+  }
+
+  drawPoint() {
+    if (this.context.records) {
+      const { lat, lon } = this.context.records;
+      if (this.source.getFeatures().length > 0) {
+        this.source
+          .getFeatures()[0]
+          .getGeometry()
+          .setCoordinates([fromLonLat([lon, lat])]);
+      } else {
+        let point = new Point(fromLonLat([lon, lat]));
+        let feat = new Feature(point);
+        this.source.addFeature(feat);
+      }
     }
   }
 

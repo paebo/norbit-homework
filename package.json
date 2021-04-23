@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "dev": "nodemon index"
+    "dev": "nodemon server && (cd frontend && npm start) && (cd app && node boat)"
   },
   "author": "Bors Péter",
   "license": "ISC",

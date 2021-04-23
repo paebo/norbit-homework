@@ -20,17 +20,17 @@ app.use(logger);
 //app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-  res.sendFile(path.join(__dirname, "/frontend/public/index.html"));
+  //res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+  //res.sendFile(path.join(__dirname, "/frontend/public/index.html"));
 });
 
 app.get("/records", db.getRecords);
 //app.get("/records/:id", db.getRecords);
 
-io.on("connection", (socket) => {
+io.on("connect", (socket) => {
   console.log("connected");
 
-  io.emit("connection", "User connected to your channel");
+  //io.emit("connection", "User connected to your channel");
 
   socket.on("new record", (data) => {
     io.emit("new record", data);

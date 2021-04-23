@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import { CoordinateProvider } from "./components/Map/CoordinateProvider";
 import Coordinates from "./components/Map/Coordinates";
-import WorldMap from "./components/Map/Map";
+import Map from "./components/Map/Map";
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
             <Coordinates />
           </ul>
         </header>
-        <WorldMap />
+        <Map />
       </CoordinateProvider>
     </div>
   );
